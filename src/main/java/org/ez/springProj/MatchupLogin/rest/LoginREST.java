@@ -38,14 +38,18 @@ public class LoginREST {
     @RequestMapping(value = "/user-login", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<List<String>> login(@RequestParam(name = "userId") String userId,
                                               @RequestParam(name = "password") String password) {
-        UserModel userInDataBase = postgreJDBC.findUser(userId);
         List<String> returnList = new ArrayList<String>();
+        if(userId == null || userId == "" || password == null || password == "") {
+            returnList.add("Invalid Username or Password!");
+            return new ResponseEntity<>(returnList, HttpStatus.NOT_FOUND);
+        }
+        UserModel userInDataBase = postgreJDBC.findUser(userId);
         if (userInDataBase == null) {
             returnList.add("User Unavailable or Not Found!");
             return new ResponseEntity<>(returnList, HttpStatus.NOT_FOUND);
         } else if (!password.equals(userInDataBase.getPassWord())) {
             returnList.add("Incorrect Password!");
-            return new ResponseEntity<>(returnList, HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(returnList, HttpStatus.UNAUTHORIZED);
         } else {
             String token = "admin";
             returnList.add("token: " + token);

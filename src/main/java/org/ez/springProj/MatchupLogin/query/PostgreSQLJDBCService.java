@@ -12,7 +12,11 @@ public class PostgreSQLJDBCService {
     UserModelRepository repository;
 
     public UserModel findUser(String userId) {
-        return repository.findById(userId).get();
+        Optional<UserModel> result = repository.findById(userId);
+        if(result.equals(Optional.empty()))
+            return null;
+        else
+            return result.get();
     }
 }
 
