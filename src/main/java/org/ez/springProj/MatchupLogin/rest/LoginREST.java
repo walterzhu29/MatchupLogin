@@ -42,8 +42,10 @@ public class LoginREST {
         List<String> returnList = new ArrayList<String>();
         if (userInDataBase == null) {
             returnList.add("User Unavailable or Not Found!");
+            return new ResponseEntity<>(returnList, HttpStatus.NOT_FOUND);
         } else if (!password.equals(userInDataBase.getPassWord())) {
             returnList.add("Incorrect Password!");
+            return new ResponseEntity<>(returnList, HttpStatus.FORBIDDEN);
         } else {
             String token = "admin";
             returnList.add("token: " + token);
