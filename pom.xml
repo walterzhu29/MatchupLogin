@@ -69,6 +69,13 @@
 			<artifactId>java-jwt</artifactId>
 			<version>3.0.2</version>
 		</dependency>
+		<!--eureka server-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+			<version>1.4.0.RELEASE</version>
+		</dependency>
+		<!--eureka server end-->
 	</dependencies>
 
 	<dependencyManagement>
